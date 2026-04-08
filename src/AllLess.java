@@ -11,11 +11,8 @@ public class AllLess {
 
         for (int i = 0; i < s.length; i++) {
 
-            if( s[i] == ""|| s[i] == null){
-                if(x < 0){
-                    results.add(s[i]);
-
-                }
+            if(s[i] == null|| s[i].equals("")){
+                continue;
             }else if(s[i].length() < x){
                 results.add(s[i]);
 
