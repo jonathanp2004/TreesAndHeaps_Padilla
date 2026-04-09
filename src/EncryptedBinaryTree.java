@@ -23,6 +23,8 @@ public class EncryptedBinaryTree {
                 return true;
             }
             return false;
+
+            //canceled commit so need to do tis comment to be able to commit
         }
 
     }
