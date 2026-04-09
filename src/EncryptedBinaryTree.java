@@ -27,4 +27,16 @@ public class EncryptedBinaryTree {
             //canceled commit so need to do tis comment to be able to commit
         }
 
+        public static void main(String[] args){
+
+        EncryptedBinaryTree main = new EncryptedBinaryTree();
+
+        int[] bt = { -2, -2, -1, -2, -1};
+
+        boolean result = main.searchEncryptedBT(bt,0,1,1);
+
+        System.out.println(result);
+
+        }
+
     }
