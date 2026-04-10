@@ -20,11 +20,13 @@ public class RedBlackTree extends BalancableTree{
 
 
     private void makeBlack(Node node){
+        if(node == null) return;
         node.setRed(false);
     }
 
 
     private void makeRed(Node node){
+        if(node == null) return;
         node.setRed(true);
     }
 
@@ -38,13 +40,17 @@ public class RedBlackTree extends BalancableTree{
     }
 
 
-    private void resolveRed(Node node) {
+    public void resolveRed(Node node) {
 
         Node parent, sibling, middle, grandparent;
         parent = node.getParent();
 
+        if(parent == null) return;
+
         if (isRed(parent)) {
             sibling = sibling(parent);
+            grandparent = parent.getParent();
+            if(grandparent == null) return;
 
             if (sibling == null || isBlack(sibling)) {
                 middle = restructure(node);
@@ -55,7 +61,7 @@ public class RedBlackTree extends BalancableTree{
                 makeBlack(parent);
                 makeBlack(sibling);
 
-                grandparent = parent.getParent();
+
 
                 if (grandparent != getRoot()) {
                     makeRed(grandparent);
@@ -64,6 +70,25 @@ public class RedBlackTree extends BalancableTree{
             }
         }
     }
+
+    public void insert(int key){
+        Node newNode = new Node(key);
+
+        Node parent = searchHelper(getRoot(), key);
+
+        newNode.setParent(parent);
+        if(key < parent.getValue()){
+            parent.left =  newNode;
+        }else{
+            parent.right = newNode;
+        }
+
+        resolveRed(newNode);
+        getRoot().setRed(false);
+
+    }
+
+
 
 
     public void rebalanceDelete(Node node){
@@ -127,6 +152,44 @@ public class RedBlackTree extends BalancableTree{
     public void balanceDelete(Node node){
         if(node != null) rebalanceDelete(node);
     }
+
+    public void deleteInRange(Node node, int a, int b){
+        if(node == null){
+            return;
+        }
+        if(node.getValue() < a){
+            deleteInRange(node.right,a, b);
+        } else if (node.getValue() > b){
+            deleteInRange(node.left,a, b);
+        }else{
+            //preorder(for deletion) :0
+            deleteInRange(node.left,a, b);
+            deleteInRange(node.right,a, b);
+            remove(node.getValue());
+        }
+    }
+
+    public static void main(String[]args){
+
+        RedBlackTree tree = new RedBlackTree(30);
+
+        tree.insert(20);
+        tree.insert(10);
+        tree.insert(19);
+        tree.insert(55);
+        tree.insert(42);
+        tree.insert(77);
+
+        tree.inOrder((tree.getRoot()));
+
+        tree.deleteInRange(tree.getRoot(),15,20);
+        System.out.println(tree.getRoot().getValue());
+
+        tree.inOrder((tree.getRoot()));
+
+
+    }
+
 
 
 

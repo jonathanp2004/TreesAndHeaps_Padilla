@@ -11,7 +11,7 @@ public class BalancableTree {
     }
 
 
-    private Node searchHelper(Node node, int key){
+    public Node searchHelper(Node node, int key){
         if(key == node.getValue()){
             return node;
 
@@ -29,6 +29,8 @@ public class BalancableTree {
             return searchHelper(node.getRight(), key);
         }
     }
+
+
 
 
     //single deletions
@@ -142,6 +144,7 @@ public class BalancableTree {
     public void rotate(Node node){
         Node x = node;
         Node y = x.getParent();
+        if(y == null) return;
         Node z = y.getParent();
 
         if(z == null){
@@ -164,8 +167,9 @@ public class BalancableTree {
 
     public Node restructure(Node x){
         Node y = x.getParent();
-
         Node z = y.getParent();
+
+        if(z == null) return y;
 
         if ((x == y.getRight()) == (y == z.getRight())){
             rotate(y);
@@ -205,5 +209,12 @@ public class BalancableTree {
         
     }
 
-}
+    public void inOrder(Node node){
+        if(node == null) return;
+            inOrder(node.getLeft());
+            System.out.println(node.getValue() + " ");
+            inOrder(node.getRight());
+        }
+    }
+
 
