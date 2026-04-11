@@ -112,8 +112,5 @@ public class Huffman {
         System.out.println("Encoded:");
         System.out.println(encode(text));
 
-
-
-
     }
 }
